@@ -46,3 +46,11 @@ func TestEmptySchedule(t *testing.T) {
 		t.Errorf("Expected empty schedule for empty input")
 	}
 }
+
+func TestSingleMeeting(t *testing.T) {
+	meetings := []Meeting{{StartTime: 9.0, EndTime: 10.0}}
+	simplified := ScheduleSimplifier(meetings)
+	if len(simplified) != 0 {
+		t.Errorf("Expected empty schedule for single meeting input")
+	}
+}
