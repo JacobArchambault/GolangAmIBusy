@@ -116,3 +116,18 @@ func TestBackToBackMeetings(t *testing.T) {
 		t.Errorf("Expected merged meeting to have start time 9.0 and end time 11.0 for back-to-back input")
 	}
 }
+
+func TestComplexOverlappingMeetings(t *testing.T) {
+	meetings := []Meeting{
+		{StartTime: 10.5, EndTime: 12.0},
+		{StartTime: 9.0, EndTime: 10.0},
+		{StartTime: 9.5, EndTime: 11.0},
+	}
+	simplified := ScheduleSimplifier(meetings)
+	if len(simplified) != 1 {
+		t.Errorf("Expected 1 meeting for complex overlapping input")
+	}
+	if simplified[0].StartTime != 9.0 || simplified[0].EndTime != 12.0 {
+		t.Errorf("Expected merged meeting to have start time 9.0 and end time 12.0 for complex overlapping input")
+	}
+}
