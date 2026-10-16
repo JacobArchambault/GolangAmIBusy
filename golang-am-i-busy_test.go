@@ -12,7 +12,7 @@ type Meeting struct {
 
 func ScheduleSimplifier(meetings []Meeting) []Meeting {
 	if len(meetings) == 0 || len(meetings) == 1 {
-		return []Meeting{}
+		return meetings
 	}
 
 	// Sort meetings by start time
@@ -50,7 +50,7 @@ func TestEmptySchedule(t *testing.T) {
 func TestSingleMeeting(t *testing.T) {
 	meetings := []Meeting{{StartTime: 9.0, EndTime: 10.0}}
 	simplified := ScheduleSimplifier(meetings)
-	if len(simplified) != 0 {
-		t.Errorf("Expected empty schedule for single meeting input")
+	if len(simplified) != 1 {
+		t.Errorf("Expected 1 meeting for single meeting input")
 	}
 }
