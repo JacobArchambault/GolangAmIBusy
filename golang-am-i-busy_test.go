@@ -70,7 +70,7 @@ func TestOrderedNonOverlappingMeetings(t *testing.T) {
 	if len(simplified) != 2 {
 		t.Errorf("Expected 2 meetings for non-overlapping input")
 	}
-	if simplified[0].StartTime != 9.0 || simplified[1].StartTime != 11.0 {
+	if simplified[0].StartTime != 9.0 || simplified[1].StartTime != 11.0 || simplified[0].EndTime != 10.0 || simplified[1].EndTime != 12.0 {
 		t.Errorf("Expected meetings to remain unchanged for non-overlapping input")
 	}
 }
@@ -84,7 +84,7 @@ func TestUnorderedNonOverlappingMeetings(t *testing.T) {
 	if len(simplified) != 2 {
 		t.Errorf("Expected 2 meetings for non-overlapping input")
 	}
-	if simplified[0].StartTime != 9.0 || simplified[1].StartTime != 11.0 {
+	if simplified[0].StartTime != 9.0 || simplified[1].StartTime != 11.0 || simplified[0].EndTime != 10.0 || simplified[1].EndTime != 12.0 {
 		t.Errorf("Expected meetings to be sorted for unordered non-overlapping input")
 	}
 }
