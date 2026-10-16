@@ -88,3 +88,17 @@ func TestUnorderedNonOverlappingMeetings(t *testing.T) {
 		t.Errorf("Expected meetings to be sorted for unordered non-overlapping input")
 	}
 }
+
+func TestOverlappingMeetings(t *testing.T) {
+	meetings := []Meeting{
+		{StartTime: 9.0, EndTime: 11.0},
+		{StartTime: 10.0, EndTime: 12.0},
+	}
+	simplified := ScheduleSimplifier(meetings)
+	if len(simplified) != 1 {
+		t.Errorf("Expected 1 meeting for overlapping input")
+	}
+	if simplified[0].StartTime != 9.0 || simplified[0].EndTime != 12.0 {
+		t.Errorf("Expected merged meeting to have start time 9.0 and end time 12.0 for overlapping input")
+	}
+}
