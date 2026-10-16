@@ -10,6 +10,8 @@ type Meeting struct {
 	EndTime   float64
 }
 
+// ScheduleSimplifier sorts meetings in place by start time and merges
+// overlapping or back-to-back meetings.
 func ScheduleSimplifier(meetings []Meeting) []Meeting {
 	if len(meetings) == 0 || len(meetings) == 1 {
 		return meetings
