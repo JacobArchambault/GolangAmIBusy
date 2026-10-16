@@ -1,7 +1,7 @@
 package main
 
 import (
-	"sort"
+	"slices"
 	"testing"
 )
 
@@ -16,8 +16,14 @@ func ScheduleSimplifier(meetings []Meeting) []Meeting {
 	}
 
 	// Sort meetings by start time
-	sort.Slice(meetings, func(i, j int) bool {
-		return meetings[i].StartTime < meetings[j].StartTime
+	slices.SortFunc(meetings, func(a, b Meeting) int {
+		if a.StartTime < b.StartTime {
+			return -1
+		}
+		if a.StartTime > b.StartTime {
+			return 1
+		}
+		return 0
 	})
 
 	simplified := []Meeting{meetings[0]}
@@ -64,7 +70,21 @@ func TestOrderedNonOverlappingMeetings(t *testing.T) {
 	if len(simplified) != 2 {
 		t.Errorf("Expected 2 meetings for non-overlapping input")
 	}
-	if simplified != nil && (simplified[0] != meetings[0] || simplified[1] != meetings[1]) {
+	if simplified[0].StartTime != 9.0 || simplified[1].StartTime != 11.0 {
 		t.Errorf("Expected meetings to remain unchanged for non-overlapping input")
+	}
+}
+
+func TestUnorderedNonOverlappingMeetings(t *testing.T) {
+	meetings := []Meeting{
+		{StartTime: 11.0, EndTime: 12.0},
+		{StartTime: 9.0, EndTime: 10.0},
+	}
+	simplified := ScheduleSimplifier(meetings)
+	if len(simplified) != 2 {
+		t.Errorf("Expected 2 meetings for non-overlapping input")
+	}
+	if simplified[0].StartTime != 9.0 || simplified[1].StartTime != 11.0 {
+		t.Errorf("Expected meetings to be sorted for unordered non-overlapping input")
 	}
 }
