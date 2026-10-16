@@ -54,3 +54,17 @@ func TestSingleMeeting(t *testing.T) {
 		t.Errorf("Expected 1 meeting for single meeting input")
 	}
 }
+
+func TestOrderedNonOverlappingMeetings(t *testing.T) {
+	meetings := []Meeting{
+		{StartTime: 9.0, EndTime: 10.0},
+		{StartTime: 11.0, EndTime: 12.0},
+	}
+	simplified := ScheduleSimplifier(meetings)
+	if len(simplified) != 2 {
+		t.Errorf("Expected 2 meetings for non-overlapping input")
+	}
+	if simplified != nil && (simplified[0] != meetings[0] || simplified[1] != meetings[1]) {
+		t.Errorf("Expected meetings to remain unchanged for non-overlapping input")
+	}
+}
