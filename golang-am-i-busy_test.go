@@ -131,3 +131,21 @@ func TestComplexOverlappingMeetings(t *testing.T) {
 		t.Errorf("Expected merged meeting to have start time 9.0 and end time 12.0 for complex overlapping input")
 	}
 }
+
+func TestMultiplePartiallyOverlappingMeetings(t *testing.T) {
+	meetings := []Meeting{
+		{StartTime: 9.0, EndTime: 10.0},
+		{StartTime: 9.5, EndTime: 11.0},
+		{StartTime: 8.5, EndTime: 8.9},
+	}
+	simplified := ScheduleSimplifier(meetings)
+	if len(simplified) != 2 {
+		t.Errorf("Expected 2 meetings for multiple partially overlapping input")
+	}
+	if simplified[0].StartTime != 8.5 || simplified[0].EndTime != 8.9 {
+		t.Errorf("Expected first meeting to have start time 8.5 and end time 8.9 for multiple partially overlapping input")
+	}
+	if simplified[1].StartTime != 9.0 || simplified[1].EndTime != 11.0 {
+		t.Errorf("Expected second meeting to have start time 9.0 and end time 11.0 for multiple partially overlapping input")
+	}
+}
